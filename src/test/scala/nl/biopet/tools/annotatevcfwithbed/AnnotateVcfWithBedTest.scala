@@ -6,6 +6,7 @@ import org.testng.annotations.Test
 import scala.util.Random
 
 class AnnotateVcfWithBedTest extends ToolTest[Args] {
+  def toolCommand: AnnotateVcfWithBed.type = AnnotateVcfWithBed
   import AnnotateVcfWithBed._
 
   @Test
