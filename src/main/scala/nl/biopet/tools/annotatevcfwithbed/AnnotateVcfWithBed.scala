@@ -1,14 +1,21 @@
 package nl.biopet.tools.annotatevcfwithbed
 
 import htsjdk.variant.variantcontext.VariantContextBuilder
-import htsjdk.variant.variantcontext.writer.{AsyncVariantContextWriter, VariantContextWriterBuilder}
-import htsjdk.variant.vcf.{VCFFileReader, VCFHeaderLineCount, VCFHeaderLineType, VCFInfoHeaderLine}
+import htsjdk.variant.variantcontext.writer.{
+  AsyncVariantContextWriter,
+  VariantContextWriterBuilder
+}
+import htsjdk.variant.vcf.{
+  VCFFileReader,
+  VCFHeaderLineCount,
+  VCFHeaderLineType,
+  VCFInfoHeaderLine
+}
 
 import nl.biopet.utils.tool.ToolCommand
 import nl.biopet.utils.ngs.intervals.{BedRecord, BedRecordList}
 
 import scala.collection.JavaConversions._
-
 
 object AnnotateVcfWithBed extends ToolCommand[Args] {
   def emptyArgs: Args = Args()
@@ -22,7 +29,6 @@ object AnnotateVcfWithBed extends ToolCommand[Args] {
 
     logger.info("Done")
   }
-
 
   def annotateVcfWithBed(cmdArgs: Args): Unit = {
     val fieldType = cmdArgs.fieldType match {
@@ -49,22 +55,26 @@ object AnnotateVcfWithBed extends ToolCommand[Args] {
 
     header.addMetaDataLine(
       new VCFInfoHeaderLine(cmdArgs.fieldName,
-        VCFHeaderLineCount.UNBOUNDED,
-        fieldType,
-        cmdArgs.fieldDescription))
+                            VCFHeaderLineCount.UNBOUNDED,
+                            fieldType,
+                            cmdArgs.fieldDescription))
     writer.writeHeader(header)
 
     logger.info("Start reading vcf records")
 
     for (record <- reader) {
       val overlaps =
-        bedRecords.overlapWith(BedRecord(record.getContig, record.getStart, record.getEnd))
+        bedRecords.overlapWith(
+          BedRecord(record.getContig, record.getStart, record.getEnd))
       if (overlaps.isEmpty) {
         writer.add(record)
       } else {
         val builder = new VariantContextBuilder(record)
-        if (fieldType == VCFHeaderLineType.Flag) builder.attribute(cmdArgs.fieldName, true)
-        else builder.attribute(cmdArgs.fieldName, overlaps.map(_.name).mkString(","))
+        if (fieldType == VCFHeaderLineType.Flag)
+          builder.attribute(cmdArgs.fieldName, true)
+        else
+          builder.attribute(cmdArgs.fieldName,
+                            overlaps.map(_.name).mkString(","))
         writer.add(builder.make)
       }
     }
