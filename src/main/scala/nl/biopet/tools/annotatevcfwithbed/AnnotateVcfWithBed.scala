@@ -84,17 +84,26 @@ object AnnotateVcfWithBed extends ToolCommand[Args] {
 
   def descriptionText: String =
     """
-      |This tool to annotates a vcf file using the input from a bed file.
+      |This tool to annotates a vcf file using the input from a bed file. The name, description
+      |and type of vcf field can be set with the tool.
     """.stripMargin
 
   def manualText: String =
     """
-      |The result of this tool will be a vcf file with an extra field with annotation.
+      |The result of this tool will be a vcf file with an extra field with annotation. The name, description
+      |and type of vcf field can be set with the tool.
     """.stripMargin
 
   def exampleText: String =
     s"""
-       |
-       |${example("-I", "input.vcf", "-B", "inputBed.bed", "-o", "output.vcf")}
+       |To annotate `input.vcf` with `inputBed.bed` and name the field `BedAnnotation`
+       |${example("-I",
+                  "input.vcf",
+                  "-B",
+                  "inputBed.bed",
+                  "-o",
+                  "output.vcf",
+                  "-f",
+                  "BedAnnotation")}
      """.stripMargin
 }
