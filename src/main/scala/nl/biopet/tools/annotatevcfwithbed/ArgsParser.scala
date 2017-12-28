@@ -6,27 +6,27 @@ import nl.biopet.utils.tool.{AbstractOptParser, ToolCommand}
 
 class ArgsParser(toolCommand: ToolCommand[Args])
     extends AbstractOptParser[Args](toolCommand) {
-  opt[File]('I', "inputFile") required () unbounded () valueName "<vcf file>" action {
+  opt[File]('I', "inputFile") required () valueName "<vcf file>" action {
     (x, c) =>
       c.copy(inputFile = x)
   } text "Input VCF file. Mandatory field"
-  opt[File]('B', "bedFile") required () unbounded () valueName "<bed file>" action {
+  opt[File]('B', "bedFile") required () valueName "<bed file>" action {
     (x, c) =>
       c.copy(bedFile = x)
   } text "Input Bed file. Mandatory field"
-  opt[File]('o', "output") required () unbounded () valueName "<vcf file>" action {
+  opt[File]('o', "output") required () valueName "<vcf file>" action {
     (x, c) =>
       c.copy(outputFile = x)
   } text "Output VCF file. Mandatory field"
-  opt[String]('f', "fieldName") required () unbounded () valueName "<name of field in vcf file>" action {
+  opt[String]('f', "fieldName") required () valueName "<name of field in vcf file>" action {
     (x, c) =>
       c.copy(fieldName = x)
   } text "Name of info field in new vcf file"
-  opt[String]('d', "fieldDescription") unbounded () valueName "<description of field in vcf file>" action {
+  opt[String]('d', "fieldDescription") valueName "<description of field in vcf file>" action {
     (x, c) =>
       c.copy(fieldDescription = x)
   } text "Description of field in new vcf file"
-  opt[String]('t', "fieldType") unbounded () valueName "<type of field in vcf file>" action {
+  opt[String]('t', "fieldType") valueName "<type of field in vcf file>" action {
     (x, c) =>
       c.copy(fieldType = x)
   } text "Type of field in new vcf file. Can be 'Integer', 'Flag', 'Character', 'Float'"
