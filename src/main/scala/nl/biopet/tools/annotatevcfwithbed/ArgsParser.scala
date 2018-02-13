@@ -35,9 +35,8 @@ class ArgsParser(toolCommand: ToolCommand[Args])
     (x, c) =>
       c.copy(bedFile = x)
   } text "Input Bed file. Mandatory field"
-  opt[File]('o', "output") required () valueName "<vcf file>" action {
-    (x, c) =>
-      c.copy(outputFile = x)
+  opt[File]('o', "output") required () valueName "<vcf file>" action { (x, c) =>
+    c.copy(outputFile = x)
   } text "Output VCF file. Mandatory field"
   opt[String]('f', "fieldName") required () valueName "<name of field in vcf file>" action {
     (x, c) =>
