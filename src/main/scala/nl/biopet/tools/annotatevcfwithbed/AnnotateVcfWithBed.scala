@@ -53,11 +53,11 @@ object AnnotateVcfWithBed extends ToolCommand[Args] {
 
   def annotateVcfWithBed(cmdArgs: Args): Unit = {
     val fieldType = cmdArgs.fieldType match {
-      case "Integer" => VCFHeaderLineType.Integer
-      case "Flag" => VCFHeaderLineType.Flag
+      case "Integer"   => VCFHeaderLineType.Integer
+      case "Flag"      => VCFHeaderLineType.Flag
       case "Character" => VCFHeaderLineType.Character
-      case "Float" => VCFHeaderLineType.Float
-      case _ => VCFHeaderLineType.String
+      case "Float"     => VCFHeaderLineType.Float
+      case _           => VCFHeaderLineType.String
     }
 
     logger.info("Reading bed file")
