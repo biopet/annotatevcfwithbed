@@ -48,13 +48,6 @@ class AnnotateVcfWithBedTest extends ToolTest[Args] {
     main(arguments)
   }
 
-  @Test def testOutputTypeBcf(): Unit = {
-    val tmpPath = "/tmp/VcfFilter_" + rand.nextString(10) + ".bcf"
-    val arguments: Array[String] =
-      Array("-I", veppedPath, "-o", tmpPath, "-B", bed, "-f", "testing")
-    main(arguments)
-  }
-
   @Test def testOutputTypeVcfGz(): Unit = {
     val tmpPath = "/tmp/VcfFilter_" + rand.nextString(10) + ".vcf.gz"
     val arguments: Array[String] =
